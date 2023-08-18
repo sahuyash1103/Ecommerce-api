@@ -4,7 +4,7 @@ const { getKey, setExKey, deleteKey } = require('../../redis/redis-services');
 async function getUserData(email) {
     let data;
     let isCached = false;
-    let error = '';
+    let error = null;
     try {
         const cacheResults = await getKey(email);
 

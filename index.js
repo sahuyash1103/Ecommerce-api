@@ -8,11 +8,11 @@ const { initMongo } = require('./src/mongo/mongo-services');
 const { initRedis } = require('./src/redis/redis-services');
 const { checkEnvironmentVariable } = require('./src/utils/check-env-var');
 
-const loginRoute = require('./src/routes/auth/login');
-const signupRoute = require('./src/routes/auth/signup');
-const categoryRoute = require('./src/routes/product/get-category');
-const productRoute = require('./src/routes/product/get-product');
-const cartRoute = require('./src/routes/cart/cart');
+const loginRoute = require('./src/routes/auth/login-route');
+const signupRoute = require('./src/routes/auth/signup-route');
+const categoryRoute = require('./src/routes/product/category-route');
+const productRoute = require('./src/routes/product/product-route');
+const cartRoute = require('./src/routes/cart/cart-route');
 
 let error;
 const app = express();

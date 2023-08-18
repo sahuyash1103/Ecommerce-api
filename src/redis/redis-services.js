@@ -24,18 +24,18 @@ async function initRedis() {
 
 
 const getKey = async (key) => {
-    const value = await redisClient.get(key);
+    const value = await redisClient.get(`ecommerce-api-${key}`);
     return JSON.parse(value);
 }
 
 const setExKey = async (key, value) => {
     await deleteKey(key);
-    const res = await redisClient.setEx(key, REDIS_EXP_TIME, JSON.stringify(value));
+    const res = await redisClient.setEx(`ecommerce-api-${key}`, REDIS_EXP_TIME, JSON.stringify(value));
     return res;
 }
 
 const deleteKey = async (key) => {
-    const res = await redisClient.del(key);
+    const res = await redisClient.del(`ecommerce-api-${key}`);
     return res;
 }
 
