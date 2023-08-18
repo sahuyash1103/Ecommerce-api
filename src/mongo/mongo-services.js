@@ -10,4 +10,14 @@ function initMongo() {
         .catch((err) => console.log(`Error while connecting to mongoDB: ${err}`));
 }
 
-module.exports = { initMongo };
+const isValidObjectId = (id) => {
+    const ObjectId = mongoose.Types.ObjectId;
+    if (ObjectId.isValid(id)) {
+        if ((String)(new ObjectId(id)) === id)
+            return true;
+        return false;
+    }
+    return false;
+};
+
+module.exports = { initMongo, isValidObjectId };

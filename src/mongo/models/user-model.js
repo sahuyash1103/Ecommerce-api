@@ -29,13 +29,13 @@ const userMongoSchema = new mongoose.Schema({
         maxlength: 1024,
     },
     cart: {
-        type: [mongoose.SchemaType.Types.ObjectId],
+        type: [mongoose.Types.ObjectId],
         minlength: 3,
         maxlength: 1024,
         ref: 'Products'
     },
     orders: {
-        type: [mongoose.SchemaType.Types.ObjectId],
+        type: [mongoose.Types.ObjectId],
         minlength: 3,
         maxlength: 1024,
         ref: 'Orders'

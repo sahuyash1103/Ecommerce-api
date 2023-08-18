@@ -1,12 +1,9 @@
-const express = require("express");
+const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const _ = require("lodash");
 
-const { validateLoginData } = require("../services/user/user-data-validators");
-const { getUserData } = require("../services/user/user-services");
-
-// ---------------------------------GLOBAL VARIABLE
-const router = express.Router();
+const { validateLoginData } = require("../../services/user/user-data-validators");
+const { getUserData } = require("../../services/user/user-services");
 
 // -----------------------------------LOGIN ROUTE
 router.post("/", async (req, res) => {

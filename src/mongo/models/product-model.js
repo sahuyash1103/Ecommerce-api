@@ -1,33 +1,33 @@
 const mongoose = require('mongoose');
 
 const productModelSchema = new mongoose.Schema({
-    productName: {
+    title: {
         type: String,
         required: true,
         minlength: 3,
-        maxlength: 50,
+        maxlength: 100,
     },
-    productImages: {
+    images: {
         type: [String],
-        required: true,
+        // required: true,
     },
-    productCategory: {
-        type: [mongoose.SchemaType.Types.ObjectId],
+    category: {
+        type: [mongoose.Types.ObjectId],
         required: true,
         ref: 'Categories'
 
     },
-    productDiscription: {
+    discription: {
         type: String,
         required: true,
         minlength: 5,
         maxlength: 200,
     },
-    productAvailability: {
+    availability: {
         type: Boolean,
         required: true,
     },
-    productPrice: {
+    price: {
         type: Number,
         required: true,
     },

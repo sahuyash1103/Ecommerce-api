@@ -11,7 +11,7 @@ async function getAllCategories() {
 
         if (cacheResults) {
             isCached = true;
-
+            categories = cacheResults;
             if (!categories) {
                 deleteKey('categories');
                 isCached = false;
@@ -33,7 +33,31 @@ async function getAllCategories() {
     return { data: categories, isCached: isCached, error: error };
 }
 
-async function getProductData(productId) {
+async function getCategory(categoryId) {
+    let category;
+    let isCached = false;
+    let error = '';
+    try {
+        const cacheResults = await getKey('categories');
+
+        if (cacheResults) {
+            isCached = true;
+            category = cacheResults?.find((cat) => cat._id === categoryId);
+            if (!category) {
+                isCached = false;
+                category = await Category.findById(categoryId);
+            }
+        } else {
+            category = await Category.findById(categoryId);
+        }
+    } catch (e) {
+        error = e;
+        console.log(e);
+    }
+    return { data: category, isCached: isCached, error: error };
+}
+
+async function getProductDetails(productId) {
     let product;
     let isCached = false;
     let error = '';
@@ -66,7 +90,40 @@ async function getProductData(productId) {
     return { data: product, isCached: isCached, error: error };
 }
 
-async function updateProductData(productId, dataToUpdate) {
+async function getAllProductWithCategory(categoryId) {
+    let products;
+    let isCached = false;
+    let error = '';
+    try {
+        const cacheResults = await getKey(categoryId);
+
+        if (cacheResults) {
+            isCached = true;
+            products = new Product(cacheResults);
+
+            if (!products) {
+                deleteKey(categoryId);
+                isCached = false;
+                products = await Product.find({ category: categoryId });
+                if (products) {
+                    setExKey(categoryId, products);
+                }
+            }
+        } else {
+            products = await Product.find({ category: categoryId });
+            if (products) {
+                setExKey(categoryId, products);
+            }
+        }
+
+    } catch (e) {
+        error = e;
+        console.log(e);
+    }
+    return { data: products, isCached: isCached, error: error };
+}
+
+async function updateProductDetails(productId, dataToUpdate) {
     let error = '';
     let message = '';
     try {
@@ -82,4 +139,4 @@ async function updateProductData(productId, dataToUpdate) {
     return { message: message, error: error };
 }
 
-module.exports = { getAllCategories, getProductData, updateProductData };
+module.exports = { getAllCategories, getCategory, getProductDetails, getAllProductWithCategory, updateProductDetails };

@@ -1,5 +1,5 @@
 // ---------------------------------IMPORTS
-const express = require("express");
+const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const _ = require("lodash");
 
@@ -7,9 +7,6 @@ const User = require("../../mongo/models/user-model");
 const { validateSignupData } = require("../../services/user/user-data-validators");
 const { setExKey } = require("../../redis/redis-services");
 const { getUserData } = require('../../services/user/user-services')
-
-// ------------------------------------GLOBAL VARIABLE
-const router = express.Router();
 
 // ------------------------------------------SINGUP ROUTE
 router.post("/", async (req, res) => {

@@ -8,8 +8,11 @@ const { initMongo } = require('./src/mongo/mongo-services');
 const { initRedis } = require('./src/redis/redis-services');
 const { checkEnvironmentVariable } = require('./src/utils/check-env-var');
 
-const loginRoute = require('./src/routes/auth/login')
-const signupRoute = require('./src/routes/auth/signup')
+const loginRoute = require('./src/routes/auth/login');
+const signupRoute = require('./src/routes/auth/signup');
+const categoryRoute = require('./src/routes/product/get-category');
+const productRoute = require('./src/routes/product/get-product');
+const cartRoute = require('./src/routes/cart/cart');
 
 let error;
 const app = express();
@@ -40,7 +43,9 @@ app.use(morgan('tiny'));
 // -----------------------------------OTHER ROUTES
 app.use("/api/auth/login", loginRoute);
 app.use("/api/auth/signup", signupRoute);
-
+app.use("/api/products/categories", categoryRoute);
+app.use("/api/products/", productRoute);
+app.use("/api/cart/", cartRoute);
 
 // -----------------------------------SERVER STATUS ROUTES
 app.get('/', (req, res) => {
