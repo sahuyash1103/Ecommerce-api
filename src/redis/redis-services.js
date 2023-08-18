@@ -40,4 +40,5 @@ const deleteKey = async (key) => {
 }
 
 
-module.exports = { initRedis, setExKey }
+
+module.exports = { initRedis, setExKey, getKey, deleteKey }

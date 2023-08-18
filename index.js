@@ -8,6 +8,9 @@ const { initMongo } = require('./src/mongo/mongo-services');
 const { initRedis } = require('./src/redis/redis-services');
 const { checkEnvironmentVariable } = require('./src/utils/check-env-var');
 
+const loginRoute = require('./src/routes/auth/login')
+const signupRoute = require('./src/routes/auth/signup')
+
 let error;
 const app = express();
 
@@ -33,6 +36,10 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('tiny'));
+
+// -----------------------------------OTHER ROUTES
+app.use("/api/auth/login", loginRoute);
+app.use("/api/auth/signup", signupRoute);
 
 
 // -----------------------------------SERVER STATUS ROUTES
