@@ -3,7 +3,7 @@
 /**
  * @swagger:
  * /api/auth/login:
- *  get:
+ *  post:
  *      summery: for authentication using email and password
  *      tags: [AUTH]
  *      requestBody:

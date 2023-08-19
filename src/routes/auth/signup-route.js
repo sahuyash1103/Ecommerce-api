@@ -3,7 +3,7 @@
 /**
  * @swagger:
  * /api/auth/signup:
- *  get:
+ *  post:
  *      summery: for registring new user
  *      tags: [AUTH]
  *      requestBody:

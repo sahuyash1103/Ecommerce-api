@@ -1,3 +1,9 @@
+/**
+ * 
+ * 
+ */
+
+
 const authenticate = require('../../middlewares/authenticate-user');
 const { getProductDetails } = require('../../services/product/product-services');
 const { getUserCart } = require('../../services/user/user-cart-services');

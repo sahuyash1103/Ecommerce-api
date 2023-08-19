@@ -1,3 +1,111 @@
+/**
+ * @swagger
+ * /api/orders/all:
+ *  get:
+ *      summery: to get the orders history of the user
+ *      tags: [ORDERS]
+ *      parameters:
+ *          - in : header
+ *            name: x-auth-token
+ *            discription: jwt token provided during login 
+ *            required: true  
+ *      responses:
+ *          500:
+ *              description: server serror
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *          404:
+ *              description: user not found or no orders yet
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: string
+ *          200:
+ *              discription: array [list] of orders
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              type: object
+ *                              $ref: '#/components/schemas/Order'
+ * 
+ * /api/orders/order/{orderId}:
+ *  get:
+ *      summery: to get order of the user
+ *      tags: [ORDERS]
+ *      parameters:
+ *          - in : path
+ *            name: orderId
+ *            discription: order id of the order
+ *            required: true  
+ *          - in : header
+ *            name: x-auth-token
+ *            discription: jwt token provided during login
+ *            required: true  
+ *      responses:
+ *          500:
+ *              description: server serror
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *          404:
+ *              description: user not found or no orders yet
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: string
+ *          200:
+ *              discription: order with order id 
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          $ref: '#/components/schemas/Order'
+ * 
+ * 
+ * /api/orders/order/:
+ *  put:
+ *      summery: to place the order
+ *      tags: [ORDERS]
+ *      parameters:
+ *          - in : header
+ *            name: x-auth-token
+ *            discription: jwt token provided during login
+ *            required: true  
+ *      responses:
+ *          500:
+ *              description: server serror
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *          404:
+ *              description: user not found or no orders yet
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: string
+ *          200:
+ *              discription: order with order id 
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              placedOrder: 
+ *                                  type: object
+ *                                  $ref: '#/components/schemas/Order'
+ *                              logs: 
+ *                                  type: object
+ *                                  description: logs during placing the orders
+ * 
+ */
+
+
 const authenticate = require('../../middlewares/authenticate-user');
 const { getOrderDetails, PlaceOrder } = require('../../services/order/order-services');
 const { getUserOrders } = require('../../services/user/user-order-service');
@@ -40,7 +148,7 @@ router.get('/order/:orderId', authenticate, async (req, res) => {
     if (!order)
         return res.status(404).send("order not found");
 
-    res.status(200).json({...order._doc});
+    res.status(200).json({ ...order._doc });
 })
 
 router.put('/order', authenticate, async (req, res) => {
