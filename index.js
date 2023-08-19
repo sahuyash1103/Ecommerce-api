@@ -13,6 +13,7 @@ const signupRoute = require('./src/routes/auth/signup-route');
 const categoryRoute = require('./src/routes/product/category-route');
 const productRoute = require('./src/routes/product/product-route');
 const cartRoute = require('./src/routes/cart/cart-route');
+const orderRoute = require('./src/routes/order/order-route');
 
 let error;
 const app = express();
@@ -45,6 +46,7 @@ app.use("/api/auth/login", loginRoute);
 app.use("/api/auth/signup", signupRoute);
 app.use("/api/products/categories", categoryRoute);
 app.use("/api/products/", productRoute);
+app.use("/api/orders/", orderRoute);
 app.use("/api/cart/", cartRoute);
 
 // -----------------------------------SERVER STATUS ROUTES

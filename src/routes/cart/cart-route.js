@@ -1,7 +1,7 @@
 const authenticate = require('../../middlewares/authenticate-user');
 const { getProductDetails } = require('../../services/product/product-services');
-const { getUserCart } = require('../../services/user/cart-services');
-const { validateAddToCartData } = require('../../services/user/cart-validation');
+const { getUserCart } = require('../../services/user/user-cart-services');
+const { validateAddToCartData } = require('../../services/user/user-cart-validation');
 const { getUserData, updateUserData } = require('../../services/user/user-services');
 
 const router = require('express').Router();
@@ -22,8 +22,10 @@ router.get("/get", authenticate, async (req, res) => {
 
 router.post("/add", authenticate, async (req, res) => {
     const reqData = req.body.addToCart;
+    if (!reqData) return res.status(400).send('no addToCart details provided.');
+
     let error = await validateAddToCartData(reqData);
-    if (error) return res.status(400).send(error);
+    if (error) return res.status(400).send(error.details[0].message);
 
     let result = await getProductDetails(reqData.productId);
     if (result.error) return res.status(500).send(result.error);

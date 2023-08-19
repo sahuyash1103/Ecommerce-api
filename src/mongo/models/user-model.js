@@ -47,8 +47,7 @@ const userMongoSchema = new mongoose.Schema({
     },
     orders: {
         type: [mongoose.Types.ObjectId],
-        minlength: 3,
-        maxlength: 1024,
+        unique: true,
         ref: 'Orders'
     },
 });

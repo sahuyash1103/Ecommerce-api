@@ -7,7 +7,7 @@ const orderMongoSchema = new mongoose.Schema({
     },
     completedOn: {
         type: String,
-        required: true,
+        required: false,
     },
     products: {
         type: [mongoose.Types.ObjectId],
@@ -18,7 +18,10 @@ const orderMongoSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-
+    isCompleted: {
+        type: Boolean,
+        required: true,
+    },
 });
 
 const OrderMongoModel = mongoose.model("Orders", orderMongoSchema);
