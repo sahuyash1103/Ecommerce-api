@@ -216,6 +216,12 @@ const swaggerOtions = {
             {
                 url: `http://localhost:${PORT}`,
             },
+            {
+                url: `https://ecommerce-api-wpiv.onrender.com/`,
+            },
+            {
+                url: `https://nice-pear-abalone-wig.cyclic.cloud/`,
+            }
         ],
     },
     apis: [
@@ -223,7 +229,7 @@ const swaggerOtions = {
         "./src/routes/*/*.js",
     ],
 }
-
+// https://ecommerce-api-wpiv.onrender.com/
 const specs = swaggerJsDoc(swaggerOtions);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 
