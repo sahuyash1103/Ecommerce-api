@@ -1,5 +1,235 @@
 /**
+ * @swagger
+ * /api/cart/get:
+ *  get:
+ *      summery: to get the cart of the user
+ *      tags: [CART]
+ *      parameters:
+ *          - in : header
+ *            name: x-auth-token
+ *            discription: jwt token provided during login 
+ *            required: true  
+ *      responses:
+ *          500:
+ *              description: server serror
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *          404:
+ *              description: user not found or no orders yet
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: string
+ *          200:
+ *              discription: array [list] of orders
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              length:
+ *                                  type: number
+ *                                  description: length of cart
+ *                              cart:
+ *                                  type: array
+ *                                  discription: list of user cart 
+ *                                  items:
+ *                                      type: object
+ *                                      $ref: '#/components/schemas/Cart'
  * 
+ *
+ * /api/cart/add:
+ *  post:
+ *      summery: to get the cart of the user
+ *      tags: [CART]
+ *      parameters:
+ *          - in : header
+ *            name: x-auth-token
+ *            discription: jwt token provided during login 
+ *            required: true  
+ *      requestBody:
+ *          discription: data for add to cart
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          addToCart:
+ *                              type: object
+ *                              properties:
+ *                                  quantity:
+ *                                      type: number
+ *                                      required: true
+ *                                  productId:
+ *                                      type: string
+ *                                      required: true
+ *      responses:
+ *          500:
+ *              description: server serror
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *          404:
+ *              description: user or product not found or cart is empty
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: string
+ *          400:
+ *              description: no addToCart details provided.
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: string
+ *          200:
+ *              discription: array [list] of orders
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              length:
+ *                                  type: number
+ *                                  description: length of cart
+ *                              cart:
+ *                                  type: array
+ *                                  discription: list of user cart 
+ *                                  items:
+ *                                      type: object
+ *                                      $ref: '#/components/schemas/Cart'
+ * 
+ *
+ * /api/cart/add/{productId}:
+ *  put:
+ *      summery: to get the cart of the user
+ *      tags: [CART]
+ *      parameters:
+ *          - in : path
+ *            name: productId
+ *            discription: id of the product to add to cart 
+ *            required: true  
+ *          - in : header
+ *            name: x-auth-token
+ *            discription: jwt token provided during login 
+ *            required: true  
+ *      responses:
+ *          500:
+ *              description: server serror
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *          404:
+ *              description: product or user not found
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: string
+ *          200:
+ *              discription: array [list] of orders
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              length:
+ *                                  type: number
+ *                                  description: length of cart
+ *                              cart:
+ *                                  type: array
+ *                                  discription: list of user cart 
+ *                                  items:
+ *                                      type: object
+ *                                      $ref: '#/components/schemas/Cart'
+ * 
+ *
+ * /api/cart/remove/{productId}:
+ *  delete:
+ *      summery: to get the cart of the user
+ *      tags: [CART]
+ *      parameters:
+ *          - in : path
+ *            name: productId
+ *            discription: id of the product to remove from cart 
+ *            required: true  
+ *          - in : header
+ *            name: x-auth-token
+ *            discription: jwt token provided during login 
+ *            required: true  
+ *      responses:
+ *          500:
+ *              description: server serror
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *          404:
+ *              description: user not found
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: string
+ *          200:
+ *              discription: array [list] of orders
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object || string
+ *                          discription: string if product is already removed
+ *                          properties:
+ *                              length:
+ *                                  type: number
+ *                                  description: length of cart
+ *                              cart:
+ *                                  type: array
+ *                                  discription: list of user cart 
+ *                                  items:
+ *                                      type: object
+ *                                      $ref: '#/components/schemas/Cart'
+ * 
+ *
+ * /api/cart/remove/all:
+ *  delete:
+ *      summery: to get the cart of the user
+ *      tags: [CART]
+ *      parameters:
+ *          - in : header
+ *            name: x-auth-token
+ *            discription: jwt token provided during login 
+ *            required: true  
+ *      responses:
+ *          500:
+ *              description: server serror
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *          404:
+ *              description: user not found
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: string
+ *          200:
+ *              discription: array [list] of orders
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              length:
+ *                                  type: number
+ *                                  description: length of cart
+ *                              cart:
+ *                                  type: array
+ *                                  discription: list of user cart 
+ *                                  items:
+ *                                      type: object
+ *                                      $ref: '#/components/schemas/Cart'
  * 
  */
 
