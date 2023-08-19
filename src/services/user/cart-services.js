@@ -1,15 +1,15 @@
 const User = require('../../mongo/models/user-model');
 
 async function getUserCart(email) {
-    let cart;
+    let data;
     let error = null;
     try {
-        cart = await User.findOne({ email: email }).select('cart').populate('cart');
+        data = await User.findOne({ email: email }).select(['cart', '-_id']).populate('cart.product');
     } catch (e) {
         error = e;
         console.log(e);
     }
-    return { data: cart, error: error };
+    return { data: data?.cart, error: error };
 }
 
 

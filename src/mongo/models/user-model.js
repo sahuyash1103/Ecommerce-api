@@ -2,6 +2,19 @@ const mongoose = require('mongoose');
 const jwt = require("jsonwebtoken");
 const { JWT_PRIVATE_KEY, JWT_EXP_TIME } = require("../../utils/get-env");
 
+const cartSchema = new mongoose.Schema({
+    quantity: {
+        type: Number,
+        required: true,
+    },
+    product: {
+        type: mongoose.Types.ObjectId,
+        required: true,
+        unique: true,
+        ref: 'Products'
+    }
+});
+
 const userMongoSchema = new mongoose.Schema({
     userName: {
         type: String,
@@ -29,10 +42,8 @@ const userMongoSchema = new mongoose.Schema({
         maxlength: 1024,
     },
     cart: {
-        type: [mongoose.Types.ObjectId],
-        minlength: 3,
-        maxlength: 1024,
-        ref: 'Products'
+        type: [cartSchema],
+        unique: true,
     },
     orders: {
         type: [mongoose.Types.ObjectId],
