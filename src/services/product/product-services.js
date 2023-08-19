@@ -99,7 +99,7 @@ async function getAllProductWithCategory(categoryId) {
 
         if (cacheResults) {
             isCached = true;
-            products = new Product(cacheResults);
+            products = cacheResults;
 
             if (!products) {
                 deleteKey(categoryId);

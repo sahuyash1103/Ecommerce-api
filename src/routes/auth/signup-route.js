@@ -1,3 +1,61 @@
+
+// ---------------------------/API/AUTH/SIGNUP ROUTE
+/**
+ * @swagger:
+ * /api/auth/signup:
+ *  get:
+ *      summery: for registring new user
+ *      tags: [AUTH]
+ *      requestBody:
+ *          discription: for authentication
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          userName:
+ *                              type: string
+ *                              required: true
+ *                          phone:
+ *                              type: string
+ *                              required: true
+ *                          email:
+ *                              type: string
+ *                              required: true
+ *                          password:
+ *                              type: string
+ *                              required: true    
+ *      responses:
+ *          500:
+ *              description: server serror
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *          401:
+ *              description: Invalid email or password
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: string || object
+ *          
+ *          200:
+ *              discription: successfuly loged in
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              jwtToken:
+ *                                  type: string
+ *                              user:
+ *                                  type: object
+ *                                  $ref: '#/components/schemas/User'
+ * 
+ */
+
+
 // ---------------------------------IMPORTS
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
